@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="logs"/>
+    <property name="encoding" value="UTF-8"/>
+    <appender name="DEFAULT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/test.log</file>
+        <Append>true</Append>
+        <prudent>false</prudent>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} %line - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--归档日志文件名-->
+            <FileNamePattern>${LOG_HOME}/test.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <maxHistory>15</maxHistory> <!-- 最多保存15天历史文件 -->
+        </rollingPolicy>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} %line - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.hypo" level="DEBUG">
+        <appender-ref ref="DEFAULT"/>
+    </logger>
+    <!-- 日志输出级别 -->
+    <root level="DEBUG">
+        <appender-ref ref="DEFAULT"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
